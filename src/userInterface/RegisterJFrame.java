@@ -3,14 +3,14 @@ package userInterface;
 import javax.swing.*;
 
 /**
- * This class is a JFrame that represents the login window.
+ * This class is a JFrame that represents the register window.
  */
-public class LoginJFrame extends JFrame {
+public class RegisterJFrame extends JFrame {
 
-    public LoginJFrame() {
+    public RegisterJFrame() {
         // Set the size of the window
-        this.setSize(488, 430);
-        this.setTitle("Klotski Game - Login");
+        this.setSize(488, 500);
+        this.setTitle("Klotski Game - Register");
         this.setAlwaysOnTop(true);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
