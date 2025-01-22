@@ -45,6 +45,12 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
 
         // Add KeyListener to the game
         this.addKeyListener(this);
+        // Bind the Action Listener
+        this.restart.addActionListener(this);
+        this.logout.addActionListener(this);
+        this.exit.addActionListener(this);
+        this.animal.addActionListener(this);
+        this.sport.addActionListener(this);
         // Make the window visible
         this.setVisible(true);
     }
@@ -69,7 +75,7 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
         // Set the game image
         for (int y = 0; y < 4; y++) {
             for (int x = 0; x < 4; x++) {
-                String path = "%s%d.jpg".formatted(this.path, data[y][x]);
+                String path = this.path + this.data[y][x] + ".jpg";
                 JLabel jLabel = new JLabel(new ImageIcon(path));
                 jLabel.setBounds(105 * x + 83, 105 * y + 134, 105, 105);
                 jLabel.setBorder(new BevelBorder(BevelBorder.LOWERED));
@@ -126,13 +132,6 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
         aboutMe.add(this.myGithub);
         aboutMe.add(this.myLinkedIn);
 
-        // Bind the Action Listener
-        this.restart.addActionListener(this);
-        this.logout.addActionListener(this);
-        this.exit.addActionListener(this);
-        this.animal.addActionListener(this);
-        this.sport.addActionListener(this);
-
         // Display the menu bar
         this.setJMenuBar(menuBar);
     }
@@ -154,6 +153,9 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
+        if (win) {
+            return;
+        }
         int code = e.getKeyCode();
         if (code == 65) {  // press A
             // Remove all the image
@@ -184,7 +186,7 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
         }
         // left:37, up:38,right:39, down:40
         int code = e.getKeyCode();
-        if (code == 37){ // press left
+        if (code == 37){ // release left
             if (xZero != 3) {  // 0 not in the most right column
                 // Exchange the image from right label to 0 label
                 data[this.yZero][this.xZero] = data[this.yZero][this.xZero + 1];
@@ -193,7 +195,7 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
                 this.count++;
                 initImage();
             }
-        } else if (code == 38) {  // press up
+        } else if (code == 38) {  // release up
             if (yZero != 3) {  // 0 not in the bottom row
                 // Exchange the image from lower label to 0 label
                 data[this.yZero][this.xZero] = data[this.yZero + 1][this.xZero];
@@ -202,7 +204,7 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
                 this.count++;
                 initImage();
             }
-        } else if (code == 39) { // press right
+        } else if (code == 39) { // release right
             if (xZero != 0) {  // 0 not in the most left column
                 // Exchange the image from left label to 0 label
                 data[this.yZero][this.xZero] = data[this.yZero][this.xZero - 1];
@@ -211,7 +213,7 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
                 this.count++;
                 initImage();
             }
-        } else if (code == 40) { // press down
+        } else if (code == 40) { // release down
             if (yZero != 0) {  // 0 not in the top row
                 // Exchange the image from upper label to 0 label
                 data[this.yZero][this.xZero] = data[this.yZero - 1][this.xZero];
@@ -220,9 +222,9 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
                 this.count++;
                 initImage();
             }
-        } else if (code == 65) { // press a
+        } else if (code == 65) { // release a
             initImage();
-        } else if (code == 87) { // press w
+        } else if (code == 87) { // release w
             data = new int[][] {
                     {1, 2, 3, 4},
                     {5, 6, 7, 8},
@@ -253,14 +255,14 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
         } else if (chosenItem == this.exit) {
             System.exit(0);
         } else if (chosenItem == this.animal) {
-            this.path = "image/animal/animal%d/".formatted(random.nextInt(8) + 1);
+            this.path = "image/animal/animal" + (random.nextInt(8) + 1) + "/";
             System.out.println(this.path);
             this.count = 0;
             this.win = false;
             initData();
             initImage();
         } else if (chosenItem == this.sport) {
-            this.path = "image/sport/sport%d/".formatted(random.nextInt(10) + 1);
+            this.path = "image/sport/sport" + (random.nextInt(10) + 1) + "/";
             System.out.println(this.path);
             this.count = 0;
             this.win = false;
